@@ -60,6 +60,8 @@ class MonteCarloTreeSearchNode():
         return len(self._untried_actions) == 0
     
     def best_child(self, c_param=0.1):
+        if len(self.children) == 0:
+            return self
         choices_weights = [(c.q() / c.n()) + c_param * np.sqrt((2 * np.log(self.n()) / c.n())) for c in self.children]
         return self.children[np.argmax(choices_weights)]
     
@@ -78,7 +80,7 @@ class MonteCarloTreeSearchNode():
         return current_node
     
     def best_action(self):
-        simulation_no = 500
+        simulation_no = 200
         for i in range(simulation_no):
             v = self._tree_policy()
             reward = v.rollout()
