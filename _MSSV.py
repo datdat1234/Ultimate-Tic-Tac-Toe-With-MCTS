@@ -1,8 +1,7 @@
 import numpy as np
-
+from MCTS import MonteCarloTreeSearchNode
 
 def select_move(cur_state, remain_time):
-    valid_moves = cur_state.get_valid_moves
-    if len(valid_moves) != 0:
-        return np.random.choice(valid_moves)
-    return None
+    root = MonteCarloTreeSearchNode(state = cur_state)
+    selected_node = root.best_action()
+    return selected_node.parent_action
